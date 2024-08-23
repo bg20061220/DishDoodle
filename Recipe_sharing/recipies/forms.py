@@ -1,11 +1,11 @@
 from django import forms
 
 class RecipeForm(forms.Form):
-    author = forms.CharField(
-        label="Author",
-        max_length=100,
-        widget=forms.TextInput(attrs={'class': 'form-control'})
-    )
+    # author = forms.CharField(
+    #     label="Author",
+    #     max_length=100,
+    #     widget=forms.TextInput(attrs={'class': 'form-control'})
+    # )
     recipename = forms.CharField(
         label="Recipe Name",
         max_length=255,

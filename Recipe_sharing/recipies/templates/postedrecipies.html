@@ -59,32 +59,21 @@
             margin-bottom: 1rem;
         }
 
-        .button-container {
-    display: flex; /* Use flexbox to align items side by side */
-    gap: 10px; /* Add space between the buttons */
-}
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #333; /* Dark button for contrast */
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: background-color 0.2s, color 0.2s;
+        }
 
-.btn {
-    /* Ensure the button styles are consistent */
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    background-color: #333;
-    color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    transition: background-color 0.2s, color 0.2s;
-    text-decoration: none; /* Remove underline from anchor tags */
-}
-
-.btn:hover {
-    background-color: #555;
-    color: white;
-}
-
-form {
-    margin: 0; /* Remove default margin */
-}
+        .btn:hover {
+            background-color: #555; /* Slightly lighter hover effect */
+            color: white;
+        }
         .navbar{
             background-color: rgb(189, 171, 90);
             display: flex;
@@ -99,6 +88,31 @@ form {
             padding-right: 10%;
             margin-bottom: 0px;
         }
+        .btn {
+            font-size: 1.25rem; /* Increase font size */
+            padding: 2rem 4rem; /* Increase padding for button size */
+            margin: 3.5rem; /* Add space between buttons */
+            background-color: rgb(177, 131, 6); /* Button background color */
+            color: white; /* White text color */
+            border: none; /* Remove default border */
+        }
+        .container-0{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            justify-items: center;
+        }
+        .btn-0 {
+            font-size: 1.25rem; /* Increase font size */
+            padding: 2rem 4rem; /* Increase padding for button size */
+            margin: 3.5rem; /* Add space between buttons */
+            background-color: rgb(177, 131, 6); /* Button background color */
+            color: white; /* White text color */
+            border: none; /* Remove default border */
+        }
+        .btn-0:hover {
+            background-color: #877d0f; /* Darker background on hover */
+        }
     </style>
 </head>
 <body>
@@ -108,9 +122,9 @@ form {
     <a href="{% url 'viewrecipies' %}"> View All Recipes</a>  
     <a href="{% url 'signin' %}">Logout/Signin</a>
     {% if user.is_authenticated %}
-            <a href="{% url 'postedrecipies' %}">Your Recipes</a>
-            <a href="{% url 'savedrecipies' %}">Saved Recipes</a>
-            {% endif %}
+    <a href="{% url 'postedrecipies' %}">Your Recipes</a>
+    <a href="{% url 'savedrecipies' %}">Saved Recipes</a>
+    {% endif %}
     <a> Signed in As : {{user.username}} </a>
 </div>
 
@@ -119,22 +133,22 @@ form {
             <h1>DishDoodle</h1>
         </a>
     </div>
+    <div class = 'container-0'>
+    {% if postedrecipies|length == 0 %}
+    <a class="btn-0"  href="/addrecipies/" >Post Your First Recipe</a>
+</div>
+{% endif %}
+ 
     <div class="container">
         <div class="row">
-            {% for recipe in recipies %}
+            
+            {% for recipe in postedrecipies %}
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{ recipe.author }}</h5>
                         <h3 class="card-text">{{ recipe.recipename }}</h3>
-                        <div class="button-container">
-                            <a class="btn" href="{% url 'recipedetails' recipe.id %}">View Details</a>
-                            <form action="{% url 'saverecipe' recipe.id %}" method="post">
-                                {% csrf_token %}
-                                <button class="btn" type="submit">Save Recipe</button>
-                            </form>
-                        </div>
-                       
+                        <a class="btn" href="{% url 'recipedetails' recipe.id %}">View Details</a>
                     </div>
                 </div>
             </div>
@@ -143,3 +157,4 @@ form {
     </div>
 </body>
 </html>
+
